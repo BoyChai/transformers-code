@@ -36,7 +36,8 @@ trainset, validest = random_split(dataset, lengths=[0.9, 0.1])
 
 
 # tokenizer
-tokenizer = AutoTokenizer.from_pretrained("E:/AI/rbt3")
+# tokenizer = AutoTokenizer.from_pretrained("E:/AI/rbt3")
+tokenizer = AutoTokenizer.from_pretrained("hfl/rbt3")
 
 
 # 数据处理
@@ -60,15 +61,16 @@ def collate_func(batch):
 # 创建DataLoader
 # DataLoader是用来把数据转换为适合模型训练和评估的批量数据加载器。
 # 这里的batch_size=32是每一批的数据大小，shuffle=True表示打乱数据顺序。
-trainloader = DataLoader(trainset, batch_size=8, shuffle=True, collate_fn=collate_func)
+trainloader = DataLoader(trainset, batch_size=32, shuffle=True, collate_fn=collate_func)
 validestloader = DataLoader(
-    validest, batch_size=8, shuffle=True, collate_fn=collate_func
+    validest, batch_size=32, shuffle=True, collate_fn=collate_func
 )
 # 测试读取
 # print(next(enumerate(trainloader))[1])
 
 # 创建模型和优化器
-model = AutoModelForSequenceClassification.from_pretrained("E:/AI/rbt3")
+# model = AutoModelForSequenceClassification.from_pretrained("E:/AI/rbt3")
+model = AutoModelForSequenceClassification.from_pretrained("hfl/rbt3")
 if torch.cuda.is_available():
     model = model.cuda()
 # optimizer = adam(model.parameters(), lr=2e-5)
