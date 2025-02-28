@@ -116,7 +116,16 @@ def train(epoch=3, log_step=100):
 
 
 # 开始训练
-try:
-    train()
-except Exception as e:
-    print(f"Error: {e}")
+train()
+
+
+# 测试模型
+sen = "太好吃了，美味！"
+id2_label = {0: "不好吃", 1: "好吃"}
+model.eval()
+with torch.inference_mode():
+    inputs = tokenizer(sen, return_tensors="pt")
+    inputs = {k: v.cuda() for k, v in inputs.items()}
+    logits = model(**inputs).logits
+    pred = torch.argmax(logits, dim=-1)
+    print(f"输出: {sen}\n模型预测结果: {id2_label[pred.item()]}")
