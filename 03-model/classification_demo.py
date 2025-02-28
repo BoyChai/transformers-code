@@ -120,8 +120,8 @@ train()
 
 
 # 测试模型
-sen = "太好吃了，美味！"
-id2_label = {0: "不好吃", 1: "好吃"}
+sen = "酒店很差"
+id2_label = {0: "差评", 1: "好评"}
 model.eval()
 with torch.inference_mode():
     inputs = tokenizer(sen, return_tensors="pt")
